@@ -1,0 +1,22 @@
+#!/bin/sh
+sudo echo ""
+read -p "Vuoi aggiornare il sistema (y/n)?" choice
+case "$choice" in
+y|Y )
+sudo apt --fix-broken install --yes
+sudo apt-get update –fix-missing
+sudo dpkg –configure -a
+sudo apt-get install -f
+sudo apt-get clean --yes
+sudo apt-get autoremove --yes
+sudo apt-get update && sudo apt-get upgrade --yes
+sudo apt-get dist-upgrade --yes
+sudo snap refresh 
+sudo apt install update-manager-core
+sudo do-release-upgrade
+sudo do-release-upgrade -d
+echo "Aggiornamento fatto";;
+n|N) echo "Ok niente affiornamento";;
+*) echo "Carattere non valido";;
+esac
+

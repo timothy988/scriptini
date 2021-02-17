@@ -1,0 +1,20 @@
+#!/bin/sh
+echo "Scriptino base che pusha progetto su githup"
+echo "Se non hai github esegui gitsetup"
+read -p "Vuoi aggiornare questa repo su github (y/n) " answer
+case "$answer" in 
+y|Y)
+echo "Ok faccio l'upload della tua repo su github"
+git add . --verbose
+read -p "Come vuoi chiamare il commit: " commit
+git commit -m "$commit"
+read -p "E il tuo primo commit (y/n) " primo
+case "$primo" in 
+	y|Y) git push 
+esac
+git push origin master
+echo "Fatto";;
+n|N)
+echo "Ok niente upload";;
+*) echo "Input non valido";;
+esac

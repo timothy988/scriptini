@@ -1,0 +1,3 @@
+ls -a
+read -p "Che cartella devo eliminare: " elimi
+rm -r $elimi -f

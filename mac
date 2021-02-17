@@ -1,0 +1,30 @@
+#!/bin/sh
+echo "Programma che cambia il mac address utilizzando macchanger"
+echo " "
+read -p "Vuoi cambiare il mac address (y/n) " ans
+
+sudo apt-get install macchanger --yes
+
+case "$ans" in 
+y|Y)
+	sudo ip link wlo1 down
+	sudo macchanger -r wlo1	
+	sudo ip link wlo1 up
+	echo "Mac address changed";;
+n|N)
+	echo "Not changing mac address";;
+*)	echo "comand non valid";;
+esac
+
+read -p "Vuoi resettare il mac address (y/n) " res
+
+case "$res" in 
+y|Y)
+	sudo ip link wlo1 down
+	sudo macchanger -p wlo1	
+	sudo ip link wlo1 up
+	echo "Mac address resetted";;
+n|N)
+	echo "Mac address not resetted";;
+*)	echo "Non vaild comand";;
+esac

@@ -1,0 +1,53 @@
+#!/bin/sh
+echo "Programma che fa il setup di vim"
+
+read -p "Utilizzi Ubuntu o Manjaro (u/m) " os
+case "$os" in
+
+u|U)
+
+echo "Ok ora ti reinstall tutto"
+sudo apt-get install xclip --yes
+sudo apt-get autoremove vim --yes
+sudo apt-get install vim --yes
+sudo apt-get install curl --yes
+pwd | xclip -sel -c
+echo "Ora installo vim plug"
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+
+cd /home/$USER
+sudo rm .vimrc -f
+sudo apt-get install wget --yes
+wget https://github.com/timothy988/configurazione/blob/master/.vimrc
+
+echo "Tutto fatto";;
+
+m|M)
+echo "Ok utilizzi manjaro procedo diversamente"
+echo "Ora ti reinstallo vim"
+yes |sudo pacman -R vim
+yes |sudo pacman -S vim
+yes |sudo pacman -S xclip
+echo "Vim reinstallato"
+pwd | xclip -sel -c
+
+echo "Ora installo vim plug"
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+cd /home/$USER
+sudo rm .vimrc -f 
+echo "Ora ti metto il file .vimrc nella cartella"
+cd $(xclip -o)
+sudo git clone https://github.com/timothy988/configurazione.git
+cd configurazione
+
+
+sudo cp .vimrc /home/$USER
+cd $(xclip -o)
+sudo rm -r configurazione -f
+echo "Tutto fatto";;
+
+esac

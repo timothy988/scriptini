@@ -1,0 +1,35 @@
+#!/bin/sh
+sudo echo ""
+read -p "Vuoi aggiornare il sistema (y/n)?" choice
+case "$choice" in
+y|Y )
+sudo pacman -Rns $(pacman -Qtdq)
+yes |sudo pacman -Syu
+yes |sudo pacman -Syyu
+yes |sudo pacman -Syy
+sudo snap refresh 
+echo "Aggiornamento fatto";;
+n|N) echo "Ok niente affiornamento";;
+*) echo "Carattere non valido";;
+esac
+read -p "Would you like to change your mac address(y/n)?" mac
+case "$mac" in
+y|Y ) 
+	sudo ip link set dev wlo1 down
+	sudo macchanger -r wlo1
+	sudo ip link set dev wlo1 up
+	echo "Mac address changer";;
+n|N) echo "Ok got it";;
+* ) echo "invalid";;
+esac
+
+read -p "Would you like to reset the mac address(y/n)?" reset
+case "$reset" in
+y|Y )
+       sudo 	ip link set dev wlo1 down
+	sudo macchanger -p wlo1
+	sudo ip link set dev wlo1 up
+echo "Mac Address restored";;
+n|N ) echo "not resetted";;
+* ) echo "invalid";;
+esac

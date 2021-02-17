@@ -1,0 +1,12 @@
+#!/bin/sh
+echo "Programma che ti install il bash"
+pwd|xclip -sel -c
+cd /home/$USER
+sudo rm .vimrc -f
+cd $(xclip -o)
+sudo git clone https://github.com/timothy988/configurazione.git
+cd configurazione
+sudo cp .bashrc /home/$USER 
+cd $(xclip -o)             
+sudo rm -r configurazione -f
+echo "Tutto fatto"

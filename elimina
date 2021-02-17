@@ -1,0 +1,2 @@
+read -p "Che programma vuoi eliminare? " elimina
+rm $elmina -f

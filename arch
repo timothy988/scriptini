@@ -1,0 +1,36 @@
+#!/bin/sh
+echo "Programma che installa arch repo dato l'url arch"
+read -p "Incolla il link github della repo arch: " url
+echo "Ora ti printo l'url:"
+echo "$url"
+rm repo.txt -f
+touch repo.txt
+git clone "$url"
+echo "$url" >> repo.txt
+
+
+cat repo.txt
+
+sed 's/aur.archlinux.org//g' repo.txt |xclip -sel -c
+>repo.txt
+echo "$(xclip -o)">>repo.txt
+sed 's/.git//g' repo.txt |xclip -sel -c
+>repo.txt
+echo "$(xclip -o)">>repo.txt
+sed 's/https://g' repo.txt |xclip -sel -c
+>repo.txt
+echo "$(xclip -o)">>repo.txt
+sed 's/[/]//g' repo.txt |xclip -sel -c
+>repo.txt
+echo "$(xclip -o)">>repo.txt
+variabile=$(<repo.txt)
+cd "$variabile"
+echo "Ora ti printo la variabile"
+echo "$variabile"
+awk '/validpgpkeys =/{print $NF}' .SRCINFO | xclip -sel -c
+marco=$(xclip -o)
+gpg --recv-keys $marco
+rm repo.txt -f
+yes | makepkg -sri
+yes |sudo pacman -U --asdeps *.pkg.tar.xz
+cd ..

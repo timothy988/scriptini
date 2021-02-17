@@ -1,0 +1,7 @@
+#!/bin/sh
+suco echo " "
+echo "Programma che installa file deb"
+ls -a
+read -p "Inserisci il nome del file(con estensione): " file
+
+sudo dpkg -i ./$file

@@ -1,0 +1,4 @@
+#!/bin/sh
+cd /
+cd /home/timothy/Desktop/freereads
+python3 freereads.py
