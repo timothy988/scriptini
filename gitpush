@@ -6,11 +6,14 @@ case "$answer" in
 y|Y)
 echo "Ok faccio l'upload della tua repo su github"
 git add . --verbose
+read -p "Come e il tuo nome utente" utente
+read -p "Come vuoi chiamare la repo" repo
 read -p "Come vuoi chiamare il commit: " commit
 git commit -m "$commit"
 read -p "E il tuo primo commit (y/n) " primo
 case "$primo" in 
-	y|Y) git push 
+	y|Y) git remote add $repo github.com/$user/$repo
+             
 esac
 git push origin master
 echo "Fatto";;
